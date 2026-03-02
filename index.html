@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misfits + Aura Integration - Wireframes</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #333;
+    }
+
+    .wireframe-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #0f0f1a;
+      color: white;
+      padding: 12px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+    }
+
+    .wireframe-nav a {
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      background: #333;
+      border-radius: 4px;
+    }
+
+    .wireframe-nav a:hover,
+    .wireframe-nav a.active {
+      background: #FF6B35;
+    }
+
+    .phone-frame {
+      width: 375px;
+      min-height: 812px;
+      background: white;
+      margin: 80px auto 40px;
+      border-radius: 40px;
+      box-shadow: 0 10px 40px rgba(255,107,53,0.3);
+      overflow: hidden;
+      border: 8px solid #1a1a1a;
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      min-height: 796px;
+      position: relative;
+      background: #fafafa;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .status-bar {
+      height: 44px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+    }
+
+    .header {
+      padding: 16px 20px;
+      background: white;
+      border-bottom: 1px solid #eee;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      background: #eee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: white;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 20px;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: #999;
+    }
+
+    .tab-item.active {
+      color: #FF6B35;
+    }
+
+    .tab-icon {
+      width: 24px;
+      height: 24px;
+      background: #ddd;
+      border-radius: 6px;
+    }
+
+    .tab-item.active .tab-icon {
+      background: #FF6B35;
+    }
+
+    .content {
+      padding: 20px;
+      padding-bottom: 100px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #FF6B35;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eee;
+      color: #333;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 2px solid #FF6B35;
+      color: #FF6B35;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 18px;
+    }
+
+    .section-header a {
+      font-size: 14px;
+      color: #FF6B35;
+      text-decoration: none;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      background: #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .clickable { cursor: pointer; transition: transform 0.1s, opacity 0.1s; }
+    .clickable:hover { opacity: 0.8; }
+    .clickable:active { transform: scale(0.98); }
+
+    /* Aura specific styles */
+    .aura-score {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+
+    .aura-badge {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .aura-glow {
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .friend-aura {
+      background: linear-gradient(135deg, #E0E7FF, #C7D2FE);
+      color: #5856D6;
+    }
+
+    .screen-label {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="wireframe-nav">
+  <span style="margin-right: 12px; opacity: 0.7;">Misfits + Aura:</span>
+  <a href="#" onclick="showScreen('profile-aura')" id="nav-profile-aura" class="active">Profile</a>
+  <a href="#" onclick="showScreen('club-leaderboard')" id="nav-club-leaderboard">Club Aura</a>
+  <a href="#" onclick="showScreen('club-challenges')" id="nav-club-challenges">Club Challenges</a>
+  <a href="#" onclick="showScreen('meetup-aura')" id="nav-meetup-aura">Meetup Aura</a>
+  <a href="#" onclick="showScreen('friend-circle')" id="nav-friend-circle">Friend Circle</a>
+  <a href="#" onclick="showScreen('give-aura')" id="nav-give-aura">Give Aura</a>
+  <a href="#" onclick="showScreen('challenge-approval')" id="nav-challenge-approval">Approvals</a>
+  <a href="#" onclick="showScreen('aura-history')" id="nav-aura-history">History</a>
+</nav>
+
+<div class="phone-frame">
+
+  <!-- Screen 1: Profile with Aura Score -->
+  <div class="screen active" id="profile-aura">
+    <div class="status-bar">9:41</div>
+    <div class="content" style="padding-top: 0;">
+      <!-- Profile Header -->
+      <div style="text-align: center; padding: 24px 0; background: linear-gradient(135deg, #FF6B35, #FF8C42); margin: -20px -20px 20px -20px; padding-bottom: 40px;">
+        <div style="width: 80px; height: 80px; background: white; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: #FF6B35; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">R</div>
+        <h1 style="color: white; font-size: 22px; margin-bottom: 4px;">Rahul Kumar</h1>
+        <p style="color: rgba(255,255,255,0.8); font-size: 13px;">Member since 2024</p>
+      </div>
+
+      <!-- Aura Score Card -->
+      <div class="card aura-glow" style="margin-top: -30px; text-align: center; padding: 24px;">
+        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Your Aura</div>
+        <div style="font-size: 48px; font-weight: 800; background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">2,450</div>
+        <div style="display: flex; justify-content: center; gap: 4px; margin-top: 8px;">
+          <span style="color: #34C759; font-size: 13px;">↑ 180 this week</span>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee;">
+          <div style="text-align: center;">
+            <div style="font-size: 18px; font-weight: 700;">12</div>
+            <div style="font-size: 11px; color: #666;">Clubs</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 18px; font-weight: 700;">47</div>
+            <div style="font-size: 11px; color: #666;">Meetups</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 18px; font-weight: 700;">23</div>
+            <div style="font-size: 11px; color: #666;">Challenges</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aura Sources Breakdown -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Aura Sources</h2>
+        <a href="#" onclick="showScreen('aura-history')">Details</a>
+      </div>
+
+      <div class="card" style="padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span style="font-size: 20px;">🏃</span>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Run Club</div>
+            <div style="font-size: 12px; color: #666;">12 meetups attended</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 16px; font-weight: 700; color: #FFD700;">+850</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span style="font-size: 20px;">📸</span>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Photography Club</div>
+            <div style="font-size: 12px; color: #666;">8 meetups, 5 challenges</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 16px; font-weight: 700; color: #FFD700;">+620</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🎯</span>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Challenge Wins</div>
+            <div style="font-size: 12px; color: #666;">18 challenges completed</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 16px; font-weight: 700; color: #FFD700;">+980</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Friend Circle Aura (Private) -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Friend Circle Aura</h2>
+        <span style="font-size: 11px; color: #666; background: #f5f5f5; padding: 4px 8px; border-radius: 4px;">Private</span>
+      </div>
+
+      <div class="card clickable" onclick="showScreen('friend-circle')" style="background: linear-gradient(135deg, #f0f0ff, #e8e8ff); border: 1px solid #E0E7FF;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 44px; height: 44px; background: #5856D6; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 20px;">👥</span>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600; color: #5856D6;">College Gang</div>
+            <div style="font-size: 12px; color: #666;">Your circle aura: <strong style="color: #5856D6;">+340</strong></div>
+          </div>
+          <span style="color: #5856D6;">→</span>
+        </div>
+        <p style="font-size: 11px; color: #888; margin-top: 10px; font-style: italic;">
+          💡 Friend circle aura is just for fun - doesn't affect your profile score
+        </p>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Recent Aura</h2>
+      </div>
+
+      <div class="card" style="padding: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+          <span style="font-size: 16px;">🏃</span>
+          <div style="flex: 1; font-size: 13px;">Attended City Marathon</div>
+          <span style="color: #FFD700; font-weight: 600;">+100</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee;">
+          <span style="font-size: 16px;">🏆</span>
+          <div style="flex: 1; font-size: 13px;">Won "Best Photo" challenge</div>
+          <span style="color: #FFD700; font-weight: 600;">+50</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding-top: 10px;">
+          <span style="font-size: 16px;">✅</span>
+          <div style="flex: 1; font-size: 13px;">Completed first 5K</div>
+          <span style="color: #FFD700; font-weight: 600;">+30</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab-item clickable">
+        <div class="tab-icon"></div>
+        <span>Home</span>
+      </div>
+      <div class="tab-item clickable" onclick="showScreen('club-leaderboard')">
+        <div class="tab-icon"></div>
+        <span>Clubs</span>
+      </div>
+      <div class="tab-item clickable" onclick="showScreen('friend-circle')">
+        <div class="tab-icon"></div>
+        <span>Friends</span>
+      </div>
+      <div class="tab-item active clickable">
+        <div class="tab-icon"></div>
+        <span>Profile</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 2: Club Leaderboard -->
+  <div class="screen" id="club-leaderboard">
+    <div class="status-bar">9:41</div>
+    <!-- Club Header -->
+    <div style="background: linear-gradient(135deg, #34C759, #30D158); padding: 20px; padding-top: 10px;">
+      <div class="back-btn clickable" onclick="showScreen('profile-aura')" style="background: rgba(255,255,255,0.2); color: white; margin-bottom: 12px;">←</div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="font-size: 40px;">🏃</div>
+        <div style="color: white;">
+          <h1 style="font-size: 22px;">Run Club</h1>
+          <p style="opacity: 0.9; font-size: 13px;">2.4k members</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Club Aura Budget Info -->
+    <div class="card" style="margin: -10px 20px 0 20px; position: relative; z-index: 10;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <div style="font-size: 12px; color: #666;">Club Aura Budget</div>
+          <div style="font-size: 11px; color: #888;">Resets monthly</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 20px; font-weight: 700; color: #FFD700;">5,000</div>
+          <div style="font-size: 11px; color: #666;">2,340 remaining</div>
+        </div>
+      </div>
+      <div style="background: #eee; height: 6px; border-radius: 3px; margin-top: 10px;">
+        <div style="background: linear-gradient(90deg, #FFD700, #FFA500); height: 6px; border-radius: 3px; width: 53%;"></div>
+      </div>
+    </div>
+
+    <div class="content" style="padding-top: 16px;">
+      <!-- Tabs -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <span style="background: #FF6B35; color: white; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;">Leaderboard</span>
+        <span class="clickable" onclick="showScreen('club-challenges')" style="background: #f5f5f5; color: #666; padding: 8px 16px; border-radius: 20px; font-size: 13px;">Challenges</span>
+        <span style="background: #f5f5f5; color: #666; padding: 8px 16px; border-radius: 20px; font-size: 13px;">Meetups</span>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="section-header">
+        <h2>This Month</h2>
+        <a href="#">All time</a>
+      </div>
+
+      <!-- Top 3 -->
+      <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; padding: 16px 0;">
+        <!-- 2nd Place -->
+        <div style="text-align: center; margin-top: 20px;">
+          <div class="avatar" style="width: 50px; height: 50px; margin: 0 auto 6px; border: 3px solid #C0C0C0;">A</div>
+          <div style="font-size: 12px; font-weight: 600;">Amit</div>
+          <div style="font-size: 14px; font-weight: 700; color: #FFD700;">380</div>
+          <div style="background: #C0C0C0; color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; margin-top: 4px;">2nd</div>
+        </div>
+        <!-- 1st Place -->
+        <div style="text-align: center;">
+          <div style="font-size: 20px; margin-bottom: 4px;">👑</div>
+          <div class="avatar" style="width: 60px; height: 60px; margin: 0 auto 6px; border: 3px solid #FFD700; font-size: 20px;">S</div>
+          <div style="font-size: 13px; font-weight: 600;">Sneha</div>
+          <div style="font-size: 18px; font-weight: 700; color: #FFD700;">450</div>
+          <div style="background: #FFD700; color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; margin-top: 4px;">1st</div>
+        </div>
+        <!-- 3rd Place -->
+        <div style="text-align: center; margin-top: 20px;">
+          <div class="avatar" style="width: 50px; height: 50px; margin: 0 auto 6px; border: 3px solid #CD7F32;">P</div>
+          <div style="font-size: 12px; font-weight: 600;">Priya</div>
+          <div style="font-size: 14px; font-weight: 700; color: #FFD700;">320</div>
+          <div style="background: #CD7F32; color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; margin-top: 4px;">3rd</div>
+        </div>
+      </div>
+
+      <!-- Rest of leaderboard -->
+      <div class="card" style="padding: 0;">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee; background: #fff8f0;">
+          <span style="font-size: 14px; font-weight: 600; color: #FF6B35; width: 24px;">4</span>
+          <div class="avatar" style="border: 2px solid #FF6B35;">R</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">You (Rahul)</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #FFD700;">280</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <span style="font-size: 14px; font-weight: 600; color: #999; width: 24px;">5</span>
+          <div class="avatar">M</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Mike</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #FFD700;">245</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <span style="font-size: 14px; font-weight: 600; color: #999; width: 24px;">6</span>
+          <div class="avatar">K</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Kavya</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #FFD700;">210</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px;">
+          <span style="font-size: 14px; font-weight: 600; color: #999; width: 24px;">7</span>
+          <div class="avatar">V</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Vikram</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #FFD700;">185</div>
+        </div>
+      </div>
+
+      <!-- How to earn -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>How to Earn Aura</h2>
+      </div>
+      <div class="card" style="padding: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+          <span style="font-size: 16px;">✅</span>
+          <div style="flex: 1; font-size: 13px;">Attend a meetup</div>
+          <span style="color: #FFD700; font-weight: 600;">+50</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee;">
+          <span style="font-size: 16px;">🏆</span>
+          <div style="flex: 1; font-size: 13px;">Complete a challenge</div>
+          <span style="color: #FFD700; font-weight: 600;">+20-100</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding-top: 10px;">
+          <span style="font-size: 16px;">⭐</span>
+          <div style="flex: 1; font-size: 13px;">Get recognized by leader</div>
+          <span style="color: #FFD700; font-weight: 600;">+10-50</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Club Challenges -->
+  <div class="screen" id="club-challenges">
+    <div class="status-bar">9:41</div>
+    <div class="header header-with-back">
+      <div class="back-btn clickable" onclick="showScreen('club-leaderboard')">←</div>
+      <div>
+        <div style="font-size: 11px; color: #34C759; font-weight: 600;">RUN CLUB</div>
+        <h1 style="font-size: 18px;">Challenges</h1>
+      </div>
+    </div>
+    <div class="content">
+      <!-- Active Challenges -->
+      <div class="section-header">
+        <h2>Active Challenges</h2>
+        <span style="font-size: 11px; background: #34C759; color: white; padding: 4px 8px; border-radius: 4px;">3 active</span>
+      </div>
+
+      <!-- Challenge 1 -->
+      <div class="card clickable" style="border: 2px solid #FFD700; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+          <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;">+100 AURA</span>
+          <span style="font-size: 12px; color: #FF6B35;">Ends in 2 days</span>
+        </div>
+        <h3 style="font-size: 16px; margin-bottom: 4px;">🏃 Marathon Champion</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Complete the City Marathon under 2 hours</p>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 12px; color: #666;">12/50 completed</span>
+          </div>
+          <button class="btn btn-primary clickable" style="width: auto; padding: 8px 16px; font-size: 13px;">Join Challenge</button>
+        </div>
+      </div>
+
+      <!-- Challenge 2 -->
+      <div class="card clickable" style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+          <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;">+50 AURA</span>
+          <span style="font-size: 12px; color: #666;">Ends in 5 days</span>
+        </div>
+        <h3 style="font-size: 16px; margin-bottom: 4px;">📸 Best Marathon Photo</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Share your best photo from the marathon</p>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 12px; color: #34C759;">✓ Joined</span>
+          </div>
+          <button class="btn btn-outline clickable" style="width: auto; padding: 8px 16px; font-size: 13px;">Submit Proof</button>
+        </div>
+      </div>
+
+      <!-- Challenge 3: First to check-in -->
+      <div class="card clickable" style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+          <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;">+30 AURA</span>
+          <span style="font-size: 12px; color: #666;">Sunday 6 AM</span>
+        </div>
+        <h3 style="font-size: 16px; margin-bottom: 4px;">⚡ Early Bird</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">First 10 to check-in at marathon venue</p>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 12px; color: #666;">Auto-awarded on check-in</span>
+          </div>
+          <span style="font-size: 11px; background: #f5f5f5; padding: 4px 8px; border-radius: 4px;">📍 Location</span>
+        </div>
+      </div>
+
+      <!-- Your Submissions -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Your Submissions</h2>
+        <a href="#" onclick="showScreen('challenge-approval')">Pending (2)</a>
+      </div>
+
+      <div class="card" style="padding: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 50px; height: 50px; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center;">📷</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Best Marathon Photo</div>
+            <div style="font-size: 12px; color: #FF9500;">⏳ Pending approval</div>
+          </div>
+          <span style="font-size: 12px; color: #666;">+50</span>
+        </div>
+      </div>
+
+      <!-- Create Challenge (for leaders) -->
+      <div style="margin-top: 24px; padding: 16px; background: #f5f5f5; border-radius: 12px; text-align: center;">
+        <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Club leaders can create challenges</p>
+        <button class="btn btn-secondary clickable" style="width: auto; padding: 10px 20px;">+ Create Challenge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 4: Meetup with Aura -->
+  <div class="screen" id="meetup-aura">
+    <div class="status-bar">9:41</div>
+    <div class="header header-with-back">
+      <div class="back-btn clickable" onclick="showScreen('club-leaderboard')">←</div>
+      <div>
+        <div style="font-size: 11px; color: #34C759; font-weight: 600;">RUN CLUB</div>
+        <h1 style="font-size: 18px;">City Marathon 2026</h1>
+      </div>
+    </div>
+    <div class="content">
+      <!-- Meetup Cover -->
+      <div style="height: 140px; background: linear-gradient(135deg, #34C759, #30D158); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+        <span style="font-size: 64px;">🏃</span>
+      </div>
+
+      <!-- Meetup Info -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700; color: #34C759;">15</div>
+            <div style="font-size: 12px; color: #666;">MAR</div>
+          </div>
+          <div>
+            <h3 style="margin-bottom: 4px;">Sunday, March 15</h3>
+            <p style="font-size: 13px; color: #666;">6:00 AM • Freedom Park</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary clickable" style="flex: 1; padding: 12px;">Going</button>
+          <button class="btn btn-secondary clickable" style="flex: 1; padding: 12px;">Maybe</button>
+        </div>
+      </div>
+
+      <!-- Aura Rewards for this Meetup -->
+      <div class="card aura-glow" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #FFD700; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-size: 24px;">✨</span>
+          <h3 style="font-size: 16px; color: #92400e;">Earn Aura at this Meetup</h3>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,215,0,0.3);">
+          <span style="font-size: 16px;">✅</span>
+          <div style="flex: 1; font-size: 13px;">Check-in at venue</div>
+          <span style="font-weight: 700; color: #FFD700;">+50</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,215,0,0.3);">
+          <span style="font-size: 16px;">⚡</span>
+          <div style="flex: 1; font-size: 13px;">First 10 to arrive</div>
+          <span style="font-weight: 700; color: #FFD700;">+30</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding-top: 10px;">
+          <span style="font-size: 16px;">🏆</span>
+          <div style="flex: 1; font-size: 13px;">Finish under 2 hours</div>
+          <span style="font-weight: 700; color: #FFD700;">+100</span>
+        </div>
+      </div>
+
+      <!-- Meetup Challenges -->
+      <div class="section-header">
+        <h2>Meetup Challenges</h2>
+        <span style="font-size: 11px; color: #FFD700;">Up to +180 aura</span>
+      </div>
+
+      <div class="card clickable" style="margin-bottom: 8px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">📸</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Best Marathon Photo</div>
+            <div style="font-size: 12px; color: #666;">Share your best shot</div>
+          </div>
+          <span style="color: #FFD700; font-weight: 600;">+50</span>
+        </div>
+      </div>
+
+      <div class="card clickable" style="margin-bottom: 8px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">👥</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Bring a Friend</div>
+            <div style="font-size: 12px; color: #666;">First-timer referral</div>
+          </div>
+          <span style="color: #FFD700; font-weight: 600;">+30</span>
+        </div>
+      </div>
+
+      <!-- Check-in Button -->
+      <div style="margin-top: 20px;">
+        <button class="btn clickable" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; font-size: 18px;">
+          📍 Check-in & Earn +50 Aura
+        </button>
+        <p style="text-align: center; font-size: 11px; color: #666; margin-top: 8px;">Available when you're at the venue</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 5: Friend Circle (Casual Aura) -->
+  <div class="screen" id="friend-circle">
+    <div class="status-bar">9:41</div>
+    <div class="header header-with-back">
+      <div class="back-btn clickable" onclick="showScreen('profile-aura')">←</div>
+      <h1 style="font-size: 20px;">College Gang</h1>
+    </div>
+    <div class="content">
+      <!-- Private Badge -->
+      <div style="background: #E0E7FF; padding: 12px; border-radius: 10px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 16px;">🔒</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: #5856D6;">Private Friend Circle</div>
+            <div style="font-size: 11px; color: #666;">This aura is just for fun - doesn't show on profiles</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Circle Leaderboard -->
+      <div class="section-header">
+        <h2>Circle Leaderboard</h2>
+        <span style="font-size: 11px; color: #5856D6; background: #E0E7FF; padding: 4px 8px; border-radius: 4px;">This week</span>
+      </div>
+
+      <div class="card" style="padding: 0; border: 1px solid #E0E7FF;">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee; background: #f8f8ff;">
+          <span style="font-size: 18px;">👑</span>
+          <div class="avatar" style="background: #5856D6; color: white;">A</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Amit</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #5856D6;">+89</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <span style="font-size: 18px; opacity: 0.5;">2</span>
+          <div class="avatar">S</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Sneha</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #5856D6;">+72</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee; background: #fff8f5;">
+          <span style="font-size: 18px; opacity: 0.5;">3</span>
+          <div class="avatar" style="border: 2px solid #FF6B35;">R</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">You (Rahul)</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #5856D6;">+54</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px;">
+          <span style="font-size: 18px; opacity: 0.5;">4</span>
+          <div class="avatar">P</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Priya</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #5856D6;">+41</div>
+        </div>
+      </div>
+
+      <!-- Give Aura to Friend -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Give Aura</h2>
+      </div>
+
+      <div class="card clickable" onclick="showScreen('give-aura')" style="background: linear-gradient(135deg, #E0E7FF, #C7D2FE); border: 1px solid #5856D6;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 48px; height: 48px; background: #5856D6; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 24px;">✨</span>
+          </div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 15px; color: #5856D6;">Give aura to a friend</h3>
+            <p style="font-size: 12px; color: #666;">Recognize something awesome they did</p>
+          </div>
+          <span style="color: #5856D6; font-size: 18px;">→</span>
+        </div>
+      </div>
+
+      <!-- Recent Activity in Circle -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Recent in Circle</h2>
+      </div>
+
+      <div class="card" style="padding: 12px;">
+        <div style="display: flex; align-items: start; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
+          <div class="avatar" style="width: 32px; height: 32px; font-size: 12px;">A</div>
+          <div style="flex: 1;">
+            <div style="font-size: 13px;"><strong>Amit</strong> gave <strong>Sneha</strong> +15 aura</div>
+            <div style="font-size: 12px; color: #666;">"Thanks for the ride yesterday!"</div>
+            <div style="font-size: 11px; color: #999; margin-top: 4px;">2 hours ago</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: start; gap: 10px; padding-top: 12px;">
+          <div class="avatar" style="width: 32px; height: 32px; font-size: 12px;">S</div>
+          <div style="flex: 1;">
+            <div style="font-size: 13px;"><strong>Sneha</strong> gave <strong>you</strong> +20 aura</div>
+            <div style="font-size: 12px; color: #666;">"Great job organizing the meetup!"</div>
+            <div style="font-size: 11px; color: #999; margin-top: 4px;">Yesterday</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Challenge in Circle -->
+      <div style="margin-top: 20px;">
+        <button class="btn btn-outline clickable" style="border-color: #5856D6; color: #5856D6;">+ Create Circle Challenge</button>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab-item clickable">
+        <div class="tab-icon"></div>
+        <span>Home</span>
+      </div>
+      <div class="tab-item clickable" onclick="showScreen('club-leaderboard')">
+        <div class="tab-icon"></div>
+        <span>Clubs</span>
+      </div>
+      <div class="tab-item active clickable">
+        <div class="tab-icon"></div>
+        <span>Friends</span>
+      </div>
+      <div class="tab-item clickable" onclick="showScreen('profile-aura')">
+        <div class="tab-icon"></div>
+        <span>Profile</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 6: Give Aura -->
+  <div class="screen" id="give-aura">
+    <div class="status-bar">9:41</div>
+    <div class="header header-with-back">
+      <div class="back-btn clickable" onclick="showScreen('friend-circle')">←</div>
+      <h1 style="font-size: 20px;">Give Aura</h1>
+    </div>
+    <div class="content">
+      <!-- Select Friend -->
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 13px; color: #666; display: block; margin-bottom: 8px;">Who are you recognizing?</label>
+        <div class="card" style="padding: 12px; border: 2px solid #5856D6;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="avatar" style="background: #5856D6; color: white;">A</div>
+            <div style="flex: 1;">
+              <div style="font-size: 15px; font-weight: 600;">Amit Kumar</div>
+              <div style="font-size: 12px; color: #666;">College Gang</div>
+            </div>
+            <span style="color: #5856D6;">Change</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amount -->
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 13px; color: #666; display: block; margin-bottom: 8px;">How much aura?</label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <div class="clickable" style="background: #f5f5f5; padding: 12px 20px; border-radius: 12px; font-size: 16px; font-weight: 600;">+5</div>
+          <div class="clickable" style="background: #E0E7FF; padding: 12px 20px; border-radius: 12px; font-size: 16px; font-weight: 600; color: #5856D6; border: 2px solid #5856D6;">+10</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 12px 20px; border-radius: 12px; font-size: 16px; font-weight: 600;">+15</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 12px 20px; border-radius: 12px; font-size: 16px; font-weight: 600;">+20</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 12px 20px; border-radius: 12px; font-size: 16px; font-weight: 600;">+25</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 12px 20px; border-radius: 12px; font-size: 14px; color: #666;">Custom</div>
+        </div>
+      </div>
+
+      <!-- Reason -->
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 13px; color: #666; display: block; margin-bottom: 8px;">What's it for? (optional)</label>
+        <textarea placeholder="e.g., Thanks for helping me move!" style="width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; resize: none; height: 80px; font-family: inherit;"></textarea>
+      </div>
+
+      <!-- Quick Reasons -->
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 13px; color: #666; display: block; margin-bottom: 8px;">Or pick a reason</label>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div class="clickable" style="background: #f5f5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">🙏 Helped me out</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">😂 Made me laugh</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">🎉 Great company</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">💪 Inspired me</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">🍕 Bought food</div>
+          <div class="clickable" style="background: #f5f5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">🚗 Gave a ride</div>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="card" style="background: #f9f9ff; border: 1px solid #E0E7FF; margin-bottom: 20px;">
+        <div style="text-align: center;">
+          <div style="font-size: 13px; color: #666; margin-bottom: 8px;">Preview</div>
+          <div style="font-size: 32px; font-weight: 800; color: #5856D6;">+10</div>
+          <div style="font-size: 14px; color: #666;">aura to Amit</div>
+        </div>
+      </div>
+
+      <!-- Note about friend circle aura -->
+      <div style="background: #f5f5f5; padding: 12px; border-radius: 10px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 14px;">💡</span>
+          <div style="font-size: 12px; color: #666;">
+            This is <strong>friend circle aura</strong> - it's unlimited and just for fun. It won't affect Amit's profile score.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary clickable" style="background: #5856D6;" onclick="showScreen('friend-circle')">Send +10 Aura ✨</button>
+    </div>
+  </div>
+
+  <!-- Screen 7: Challenge Approval (for club leaders) -->
+  <div class="screen" id="challenge-approval">
+    <div class="status-bar">9:41</div>
+    <div class="header header-with-back">
+      <div class="back-btn clickable" onclick="showScreen('club-challenges')">←</div>
+      <h1 style="font-size: 20px;">Pending Approvals</h1>
+    </div>
+    <div class="content">
+      <!-- Leader Badge -->
+      <div style="background: #34C759; color: white; padding: 10px 14px; border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 16px;">👑</span>
+        <div style="font-size: 13px;">You're a <strong>Run Club Leader</strong> - approve challenge submissions</div>
+      </div>
+
+      <!-- Budget Remaining -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 13px; color: #666;">Club aura budget remaining</div>
+          <div style="font-size: 18px; font-weight: 700; color: #FFD700;">2,340</div>
+        </div>
+      </div>
+
+      <!-- Pending Submissions -->
+      <div class="section-header">
+        <h2>Pending Submissions</h2>
+        <span style="background: #FF6B35; color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px;">5 pending</span>
+      </div>
+
+      <!-- Submission 1 -->
+      <div class="card" style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="avatar">R</div>
+            <div>
+              <div style="font-size: 14px; font-weight: 600;">Rahul Kumar</div>
+              <div style="font-size: 12px; color: #666;">2 hours ago</div>
+            </div>
+          </div>
+          <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;">+50</span>
+        </div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">📸 Best Marathon Photo</div>
+        <!-- Photo proof -->
+        <div style="width: 100%; height: 150px; background: linear-gradient(135deg, #eee, #ddd); border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 40px;">🏃📷</span>
+        </div>
+        <div style="font-size: 13px; color: #666; margin-bottom: 12px;">"My finish line moment - 1:58:32!"</div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary clickable" style="flex: 1; padding: 12px; font-size: 14px;">✓ Approve (+50)</button>
+          <button class="btn btn-secondary clickable" style="flex: 1; padding: 12px; font-size: 14px;">✗ Reject</button>
+        </div>
+      </div>
+
+      <!-- Submission 2 -->
+      <div class="card" style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="avatar">M</div>
+            <div>
+              <div style="font-size: 14px; font-weight: 600;">Mike Chen</div>
+              <div style="font-size: 12px; color: #666;">3 hours ago</div>
+            </div>
+          </div>
+          <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;">+100</span>
+        </div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">🏃 Marathon Champion</div>
+        <div style="width: 100%; height: 100px; background: linear-gradient(135deg, #eee, #ddd); border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 13px; color: #666;">Finish time screenshot: 1:52:18</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary clickable" style="flex: 1; padding: 12px; font-size: 14px;">✓ Approve (+100)</button>
+          <button class="btn btn-secondary clickable" style="flex: 1; padding: 12px; font-size: 14px;">✗ Reject</button>
+        </div>
+      </div>
+
+      <!-- Quick Approve All -->
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn btn-outline clickable" style="width: auto; padding: 12px 24px;">Approve All (5) - Uses 280 aura</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 8: Aura History -->
+  <div class="screen" id="aura-history">
+    <div class="status-bar">9:41</div>
+    <div class="header header-with-back">
+      <div class="back-btn clickable" onclick="showScreen('profile-aura')">←</div>
+      <h1 style="font-size: 20px;">Aura History</h1>
+    </div>
+    <div class="content">
+      <!-- Filter Tabs -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto;">
+        <span style="background: #FF6B35; color: white; padding: 8px 14px; border-radius: 20px; font-size: 12px; white-space: nowrap;">All</span>
+        <span style="background: #f5f5f5; color: #666; padding: 8px 14px; border-radius: 20px; font-size: 12px; white-space: nowrap;">🏃 Clubs</span>
+        <span style="background: #f5f5f5; color: #666; padding: 8px 14px; border-radius: 20px; font-size: 12px; white-space: nowrap;">🎯 Challenges</span>
+        <span style="background: #f5f5f5; color: #666; padding: 8px 14px; border-radius: 20px; font-size: 12px; white-space: nowrap;">📅 Meetups</span>
+      </div>
+
+      <!-- Summary -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-around; text-align: center;">
+          <div>
+            <div style="font-size: 20px; font-weight: 700; color: #34C759;">+2,450</div>
+            <div style="font-size: 11px; color: #666;">Total Earned</div>
+          </div>
+          <div style="width: 1px; background: #eee;"></div>
+          <div>
+            <div style="font-size: 20px; font-weight: 700; color: #FF6B35;">0</div>
+            <div style="font-size: 11px; color: #666;">Spent/Lost</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- History List -->
+      <div class="section-header">
+        <h2>This Month</h2>
+      </div>
+
+      <div class="card" style="padding: 0;">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <div style="width: 40px; height: 40px; background: #34C759; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">✅</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Attended City Marathon</div>
+            <div style="font-size: 12px; color: #666;">Run Club • Today</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #34C759;">+100</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <div style="width: 40px; height: 40px; background: #FFD700; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">🏆</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Won "Best Photo" challenge</div>
+            <div style="font-size: 12px; color: #666;">Photography Club • Yesterday</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #34C759;">+50</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <div style="width: 40px; height: 40px; background: #5856D6; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">⚡</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Early Bird bonus</div>
+            <div style="font-size: 12px; color: #666;">Run Club • Yesterday</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #34C759;">+30</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #eee;">
+          <div style="width: 40px; height: 40px; background: #FF9500; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">👥</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Referred a new member</div>
+            <div style="font-size: 12px; color: #666;">Run Club • 3 days ago</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #34C759;">+25</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px;">
+          <div style="width: 40px; height: 40px; background: #34C759; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">✅</div>
+          <div style="flex: 1;">
+            <div style="font-size: 14px; font-weight: 600;">Attended Weekly 5K</div>
+            <div style="font-size: 12px; color: #666;">Run Club • 1 week ago</div>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #34C759;">+50</div>
+        </div>
+      </div>
+
+      <!-- Last Month -->
+      <div class="section-header" style="margin-top: 20px;">
+        <h2>Last Month</h2>
+        <span style="font-size: 12px; color: #34C759;">+420 earned</span>
+      </div>
+
+      <div class="card" style="padding: 14px; text-align: center; color: #666;">
+        <span style="font-size: 13px;">12 activities • <a href="#" style="color: #FF6B35;">View all</a></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="screen-label" id="screen-label">Screen: Profile with Aura</div>
+
+<script>
+  function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+
+    document.querySelectorAll('.wireframe-nav a').forEach(a => a.classList.remove('active'));
+    const navEl = document.getElementById('nav-' + screenId);
+    if (navEl) navEl.classList.add('active');
+
+    const labels = {
+      'profile-aura': 'Profile with Aura Score',
+      'club-leaderboard': 'Club Aura Leaderboard',
+      'club-challenges': 'Club Challenges (Budgeted)',
+      'meetup-aura': 'Meetup with Aura Rewards',
+      'friend-circle': 'Friend Circle (Casual Aura)',
+      'give-aura': 'Give Friend Circle Aura',
+      'challenge-approval': 'Challenge Approval (Leaders)',
+      'aura-history': 'Aura History'
+    };
+    document.getElementById('screen-label').textContent = 'Screen: ' + labels[screenId];
+
+    document.querySelector('.phone-frame').scrollTop = 0;
+  }
+</script>
+
+</body>
+</html>

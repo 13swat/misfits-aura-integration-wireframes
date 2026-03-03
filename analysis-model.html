@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misfits Integration Analysis Model</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #FF6B35;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        /* Factor Categories */
+        .category {
+            margin-bottom: 40px;
+        }
+        .category-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FF6B35;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .comparison-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            border-bottom: 2px solid #333;
+            font-weight: 600;
+        }
+        .comparison-table th:first-child {
+            width: 200px;
+        }
+        .comparison-table th:not(:first-child) {
+            width: 22%;
+            text-align: center;
+        }
+        .comparison-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #222;
+            vertical-align: top;
+        }
+        .comparison-table td:not(:first-child) {
+            text-align: center;
+        }
+        .comparison-table tr:hover {
+            background: #151515;
+        }
+
+        /* Factor name and description */
+        .factor-name {
+            font-weight: 600;
+            color: #fff;
+        }
+        .factor-desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Ratings */
+        .rating {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .rating-score {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .score-high { background: #22c55e22; color: #22c55e; }
+        .score-med { background: #eab30822; color: #eab308; }
+        .score-low { background: #ef444422; color: #ef4444; }
+
+        .rating-note {
+            font-size: 11px;
+            color: #888;
+            max-width: 120px;
+            text-align: left;
+        }
+
+        /* Concept Headers */
+        .concept-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .concept-icon {
+            font-size: 20px;
+        }
+        .concept-name {
+            font-size: 13px;
+        }
+
+        /* Summary Section */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .summary-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #333;
+        }
+        .summary-card h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .summary-card .total-score {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .summary-card .score-label {
+            font-size: 12px;
+            color: #888;
+        }
+        .summary-card ul {
+            margin-top: 16px;
+            padding-left: 20px;
+        }
+        .summary-card li {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
+        .summary-card li.pro { color: #22c55e; }
+        .summary-card li.con { color: #ef4444; }
+
+        /* Weight indicator */
+        .weight {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #333;
+            color: #888;
+            margin-left: 8px;
+        }
+        .weight-high { background: #FF6B3522; color: #FF6B35; }
+
+        /* Notes section */
+        .notes {
+            margin-top: 40px;
+            padding: 24px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            border-left: 4px solid #FF6B35;
+        }
+        .notes h3 {
+            margin-bottom: 12px;
+        }
+        .notes p {
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Misfits Integration Analysis Model</h1>
+    <p class="subtitle">Comparing 3 integration concepts across 12 weighted factors</p>
+
+    <!-- GROWTH FACTORS -->
+    <div class="category">
+        <div class="category-title">Growth & Virality</div>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">📅</span>
+                            <span class="concept-name">Only Plans</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">✨</span>
+                            <span class="concept-name">Aura Farming</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">🃏</span>
+                            <span class="concept-name">Gossip Cards</span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="factor-name">K-Factor (Virality) <span class="weight weight-high">×3</span></div>
+                        <div class="factor-desc">How many new users does each user naturally bring in?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Plans shared to invite, but limited reach</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">7</span>
+                            <span class="rating-note">Aura flexing drives invites, leaderboards create FOMO</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">IRL cards + gossip = highly shareable, "you need to see your card"</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Network Effects <span class="weight">×2</span></div>
+                        <div class="factor-desc">Does product value increase with more users?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">5</span>
+                            <span class="rating-note">More people = more plans, but diminishing returns</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Leaderboards, cross-club competition scales well</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">More friends = richer card dynamics, trading potential</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Organic Shareability <span class="weight">×2</span></div>
+                        <div class="factor-desc">Do users want to share this on social media?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-low">4</span>
+                            <span class="rating-note">Plans aren't inherently shareable content</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">7</span>
+                            <span class="rating-note">"Check my aura score" flex potential</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">Cards are visual, fun, meme-worthy</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- RETENTION FACTORS -->
+    <div class="category">
+        <div class="category-title">Retention & Engagement</div>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">📅</span>
+                            <span class="concept-name">Only Plans</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">✨</span>
+                            <span class="concept-name">Aura Farming</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">🃏</span>
+                            <span class="concept-name">Gossip Cards</span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="factor-name">Daily Habit Potential <span class="weight weight-high">×3</span></div>
+                        <div class="factor-desc">Can this become a daily open behavior?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-low">4</span>
+                            <span class="rating-note">Event-driven, not daily utility</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">7</span>
+                            <span class="rating-note">Check aura, give points, daily challenges</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Daily questions, card drops, gossip feed</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Session Depth <span class="weight">×1</span></div>
+                        <div class="factor-desc">Time spent per session</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">5</span>
+                            <span class="rating-note">Quick check plans, done</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Browse leaderboards, give aura</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Explore cards, vote, react, browse collection</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">FOMO & Pull Triggers <span class="weight">×2</span></div>
+                        <div class="factor-desc">What pulls users back to the app?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Upcoming plans, RSVP notifications</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Aura notifications, leaderboard changes, challenges ending</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">"Someone made a card about you", "New card dropped"</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">IRL-to-Digital Bridge <span class="weight weight-high">×3</span></div>
+                        <div class="factor-desc">How well does it connect real-world hangouts to app engagement?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Core purpose is making IRL plans</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Earn aura at meetups, check-in mechanics</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">Cards generated from IRL moments, physical card sharing</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- EXECUTION FACTORS -->
+    <div class="category">
+        <div class="category-title">Execution & Feasibility</div>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">📅</span>
+                            <span class="concept-name">Only Plans</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">✨</span>
+                            <span class="concept-name">Aura Farming</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">🃏</span>
+                            <span class="concept-name">Gossip Cards</span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="factor-name">Ease of Execution <span class="weight weight-high">×3</span></div>
+                        <div class="factor-desc">Technical complexity & time to build MVP</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">Simple CRUD, calendar UI, notifications</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">7</span>
+                            <span class="rating-note">Points system, budgets, leaderboards need careful design</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-low">5</span>
+                            <span class="rating-note">Card generation, AI insights, voting systems, 35+ screens</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Content Generation <span class="weight">×2</span></div>
+                        <div class="factor-desc">Who creates value? User effort required?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Users create plans, low friction</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">7</span>
+                            <span class="rating-note">Leaders create challenges, users give aura - balanced</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Cards auto-generate from activity, AI assists</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Onboarding Friction <span class="weight">×2</span></div>
+                        <div class="factor-desc">How easy to understand and get started?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">"Make plans with friends" - instantly understood</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Two aura types, budgets, challenges need explanation</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Card system is novel, requires learning</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- STRATEGIC FACTORS -->
+    <div class="category">
+        <div class="category-title">Strategic & Monetization</div>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">📅</span>
+                            <span class="concept-name">Only Plans</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">✨</span>
+                            <span class="concept-name">Aura Farming</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="concept-header">
+                            <span class="concept-icon">🃏</span>
+                            <span class="concept-name">Gossip Cards</span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="factor-name">Monetization Potential <span class="weight">×2</span></div>
+                        <div class="factor-desc">Clear paths to revenue</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-low">4</span>
+                            <span class="rating-note">Premium templates? Venue partnerships? Weak.</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Premium clubs, aura boosts, club subscriptions</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">8</span>
+                            <span class="rating-note">Physical cards, premium card designs, wrapped packages</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Differentiation <span class="weight">×2</span></div>
+                        <div class="factor-desc">How unique vs competitors?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-low">3</span>
+                            <span class="rating-note">Crowded space: Partiful, IRL, Luma, WhatsApp groups</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">7</span>
+                            <span class="rating-note">Two-tier aura is unique, but "points" exist elsewhere</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">IRL collectible cards for friend groups is novel</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="factor-name">Risk: Negative Dynamics <span class="weight">×1</span></div>
+                        <div class="factor-desc">Could this harm friendships or create toxicity?</div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-high">9</span>
+                            <span class="rating-note">Low risk - just planning</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-med">6</span>
+                            <span class="rating-note">Leaderboards can cause jealousy, exclusion</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            <span class="rating-score score-low">4</span>
+                            <span class="rating-note">"Certified Flaker" cards could hurt, gossip can turn toxic</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- WEIGHTED SUMMARY -->
+    <h2 style="margin-top: 60px; margin-bottom: 20px; color: #FF6B35;">Weighted Summary</h2>
+    <div class="summary-grid">
+        <div class="summary-card">
+            <h3>📅 Only Plans</h3>
+            <div class="total-score" style="color: #eab308;">68</div>
+            <div class="score-label">Weighted Score / 120</div>
+            <ul>
+                <li class="pro">+ Easiest to build</li>
+                <li class="pro">+ Zero onboarding friction</li>
+                <li class="pro">+ Low social risk</li>
+                <li class="con">- Crowded market</li>
+                <li class="con">- Weak virality</li>
+                <li class="con">- Poor retention hooks</li>
+            </ul>
+        </div>
+        <div class="summary-card" style="border-color: #FF6B35;">
+            <h3>✨ Aura Farming</h3>
+            <div class="total-score" style="color: #22c55e;">85</div>
+            <div class="score-label">Weighted Score / 120</div>
+            <ul>
+                <li class="pro">+ Strong retention mechanics</li>
+                <li class="pro">+ Balanced effort to build</li>
+                <li class="pro">+ Good IRL bridge</li>
+                <li class="con">- Moderate virality</li>
+                <li class="con">- Needs explanation</li>
+                <li class="con">- Some social risk</li>
+            </ul>
+        </div>
+        <div class="summary-card">
+            <h3>🃏 Gossip Cards</h3>
+            <div class="total-score" style="color: #22c55e;">91</div>
+            <div class="score-label">Weighted Score / 120</div>
+            <ul>
+                <li class="pro">+ Highest virality potential</li>
+                <li class="pro">+ Most differentiated</li>
+                <li class="pro">+ Strong monetization</li>
+                <li class="con">- Hardest to build</li>
+                <li class="con">- Highest social risk</li>
+                <li class="con">- Complex onboarding</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- HYBRID CONSIDERATION -->
+    <div class="notes">
+        <h3>💡 Hybrid Consideration</h3>
+        <p style="margin-bottom: 12px;">
+            <strong>Aura + Cards Hybrid:</strong> Combine Aura's retention mechanics with Cards' virality.
+            Aura becomes the underlying system, cards become the shareable output.
+        </p>
+        <p>
+            • Earn aura from activities → Aura unlocks card reveals<br>
+            • Friend circle aura = casual card generation ("Today's vibe" cards)<br>
+            • Profile aura = milestone cards (achievement unlocks)<br>
+            • IRL cards = physical manifestation of digital aura milestones
+        </p>
+    </div>
+
+    <!-- FACTOR WEIGHTS EXPLANATION -->
+    <div style="margin-top: 40px; padding: 20px; background: #111; border-radius: 8px;">
+        <h3 style="margin-bottom: 12px; font-size: 14px;">Weight Calculation</h3>
+        <p style="color: #888; font-size: 13px;">
+            Factors marked <span class="weight weight-high">×3</span> are weighted 3x (K-Factor, Daily Habit, IRL Bridge, Ease of Execution).<br>
+            Factors marked <span class="weight">×2</span> are weighted 2x.<br>
+            Unmarked factors are weighted 1x.<br>
+            Max possible weighted score: 120 points.
+        </p>
+    </div>
+
+</body>
+</html>
